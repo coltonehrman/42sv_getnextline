@@ -5,109 +5,84 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cehrman <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/21 13:32:23 by cehrman           #+#    #+#             */
-/*   Updated: 2020/02/22 20:26:05 by cehrman          ###   ########.fr       */
+/*   Created: 2020/02/23 11:22:47 by cehrman           #+#    #+#             */
+/*   Updated: 2020/02/23 11:33:46 by cehrman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		resize_data(char **data, int bytes_read, int total_bytes)
+int	check_cache(char **cache, char **line)
 {
-	char	*cpy;
 	int		i;
+	char	*data;
+	char	*match;
+	char	*rest;
 
 	i = 0;
-	if (*data)
+	data = *cache;
+	while (data[i])
 	{
-		cpy = *data;
-		*data = 0;
-		*data = (char *)malloc(sizeof(char) * total_bytes);
-		while (i < (total_bytes - bytes_read))
+		if (data[i] == '\n')
 		{
-			(*data)[i] = cpy[i];
-			i++;
-		}
-		free(cpy);
-		cpy = 0;
-	}
-	else
-		*data = (char *)malloc(sizeof(char) * bytes_read);
-	return (i);
-}
-
-int		copy_buff(char *buff, char **data, int *i, int total_bytes)
-{
-	int j;
-
-	j = 0;
-	while (*i < total_bytes)
-	{
-		if (buff[j] == '\n')
-		{
-			(*data)[*i] = 0;
+			match = ft_strsub(data, 0, i);
+			rest = ft_strsub(data, i + 1, ft_strlen(data) + 1);
+			free(data);
+			*cache = rest;
+			*line = match;
 			return (1);
 		}
-		(*data)[*i] = buff[j];
-		(*i)++;
-		j++;
+		i++;
 	}
 	return (0);
 }
 
-int		get_next_line(const int fd, char **line)
+int	read_fd(int fd, char **cache)
 {
-	static int	reads = 0;
-	char		buff[BUFF_SIZE];
-	char		*data;
-	int			bytes[2];
-	int			i[2];
+	char	*tmp[2];
+	char	*data;
+	char	buff[BUFF_SIZE];
+	int		bytes_read;
 
-	reads++;
-	data = 0;
-	bytes[1] = 0;
-	if (!line || fd < 0)
+	bytes_read = 0;
+	data = *cache;
+	bytes_read = read(fd, &buff, BUFF_SIZE);
+	if (bytes_read < 0)
 		return (-1);
-	while ((bytes[0] = read(fd, buff, BUFF_SIZE)) > 0)
+	if (bytes_read > 0)
 	{
-		bytes[1] += bytes[0];
-		i[0] = resize_data(&data, bytes[0], bytes[1]);
-		if ((copy_buff(buff, &data, &(i[0]), bytes[1]) == 1))
-			return ((*line = data) ? 1 : 1);
+		tmp[0] = data;
+		tmp[1] = ft_strsub(buff, 0, bytes_read);
+		*cache = ft_strjoin(tmp[0], tmp[1]);
+		free(tmp[0]);
+		free(tmp[1]);
 	}
-	*line = data;
-	if (bytes[1] > 0 && (i[0] = resize_data(&data, bytes[0], bytes[1])))
-		data[i[0]] = 0;
-	*line = data;
-	if (bytes[0] <= 0 && bytes[1] < 1)
-		return (bytes[0]);
-	return (bytes[1] > 0 ? 1 : -1);
+	return (bytes_read);
 }
 
-/*
-#include <fcntl.h>
-#include <stdio.h>
-
-int main(int argc, char **argv)
+int	get_next_line(int fd, char **line)
 {
-	int fd[2];
-	int res[2];
-	char *line[2];
-	fd[0] = open(argv[1], O_RDONLY);
-	
-	while ((res[0] = get_next_line(fd[0], &(line[0]))) > 0)
-	{
-		printf("fd: %d - %s\n", fd[0], line[0]);
-	}
-	close(fd[0]);
+	static char	*cache[MAX_FD];
+	int			bytes_read;
 
-	fd[1] = open(argv[2], O_RDONLY);
-	while ((res[1] = get_next_line(fd[1], &(line[1]))) > 0)
+	if (fd < 0 || fd > MAX_FD || !line)
+		return (-1);
+	if (!cache[fd])
+		cache[fd] = ft_strnew(0);
+	if (check_cache(&(cache[fd]), line) == 1)
+		return (1);
+	if ((bytes_read = read_fd(fd, &(cache[fd]))) == -1)
+		return (-1);
+	else if (bytes_read == 0)
 	{
-		printf("fd: %d - %s\n", fd[1], line[1]);
+		if (ft_strlen(cache[fd]) > 0)
+		{
+			*line = ft_strdup(cache[fd]);
+			free(cache[fd]);
+			cache[fd] = 0;
+			return (1);
+		}
+		return (0);
 	}
-	close(fd[1]);
-
-	return (0);
+	return (get_next_line(fd, line));
 }
-*/
