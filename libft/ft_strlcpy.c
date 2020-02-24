@@ -6,7 +6,7 @@
 /*   By: cehrman <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/19 09:19:34 by cehrman           #+#    #+#             */
-/*   Updated: 2020/02/19 19:43:41 by cehrman          ###   ########.fr       */
+/*   Updated: 2020/02/23 17:16:37 by cehrman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 		return (0);
 	i = 0;
 	src_len = ft_strlen(src);
-	while (src[i] && dst[i] && dstsize > 1)
+	while (src[i] && dstsize > 1)
 	{
 		dst[i] = src[i];
 		i++;

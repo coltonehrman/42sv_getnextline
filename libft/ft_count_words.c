@@ -6,7 +6,7 @@
 /*   By: cehrman <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 10:20:39 by cehrman           #+#    #+#             */
-/*   Updated: 2020/02/20 10:28:34 by cehrman          ###   ########.fr       */
+/*   Updated: 2020/02/23 16:57:03 by cehrman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		ft_count_words(const char *s, char c)
 	in_word = 0;
 	while (*s)
 	{
-		if (!ft_isspace(*s) && *s != c)
+		if (*s != c)
 		{
 			if (!in_word)
 				count++;

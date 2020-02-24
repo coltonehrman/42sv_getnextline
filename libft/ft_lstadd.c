@@ -6,7 +6,7 @@
 /*   By: cehrman <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 19:46:46 by cehrman           #+#    #+#             */
-/*   Updated: 2020/02/20 19:50:44 by cehrman          ###   ########.fr       */
+/*   Updated: 2020/02/23 17:04:26 by cehrman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_lstadd(t_list **alst, t_list *new)
 {
-	if (!alst || !(*alst) || !new)
+	if (!alst || !new)
 		return ;
 	new->next = *alst;
 	*alst = new;

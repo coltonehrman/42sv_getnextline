@@ -6,7 +6,7 @@
 /*   By: cehrman <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 10:17:00 by cehrman           #+#    #+#             */
-/*   Updated: 2020/02/20 13:41:42 by cehrman          ###   ########.fr       */
+/*   Updated: 2020/02/23 16:57:52 by cehrman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ char	**ft_strsplit(char const *s, char c)
 	i[1] = 0;
 	while (*s)
 	{
-		if (!i[1] && !ft_isspace(*s) && *s != c)
+		if (!i[1] && *s != c)
 		{
 			i[2] = ft_count_till(s, c);
 			words[i[0]] = ft_strsub(s, 0, i[2]);
 			i[0]++;
 			i[1] = 1;
 		}
-		else if (ft_isspace(*s) || *s == c)
+		else if (*s == c)
 			i[1] = 0;
 		s++;
 	}
