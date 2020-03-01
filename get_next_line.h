@@ -6,14 +6,14 @@
 /*   By: cehrman <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/21 13:32:14 by cehrman           #+#    #+#             */
-/*   Updated: 2020/02/23 11:30:51 by cehrman          ###   ########.fr       */
+/*   Updated: 2020/02/29 16:28:47 by cehrman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFF_SIZE
-#  define BUFF_SIZE 1000 
+#  define BUFF_SIZE 1000
 # endif
 # ifndef MAX_FD
 #  define MAX_FD 1025
