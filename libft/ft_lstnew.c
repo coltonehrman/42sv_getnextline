@@ -6,11 +6,20 @@
 /*   By: cehrman <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 18:32:11 by cehrman           #+#    #+#             */
-/*   Updated: 2020/02/23 16:41:35 by cehrman          ###   ########.fr       */
+/*   Updated: 2020/03/01 09:20:16 by cehrman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+/*
+**		Function	:	ft_lstnew
+**		Parameters	:	(void const *)content, (size_t)content_size
+**		Description	:	creates a new (t_list) and sets its data
+**						to the params |content| and |content_size|
+**						then sets the (t_list)->next to NULL
+**		Return		:	(t_list *) pointer to new linked list
+*/
 
 t_list	*ft_lstnew(void const *content, size_t content_size)
 {

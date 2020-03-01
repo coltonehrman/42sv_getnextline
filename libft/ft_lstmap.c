@@ -6,17 +6,26 @@
 /*   By: cehrman <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 19:58:27 by cehrman           #+#    #+#             */
-/*   Updated: 2020/02/21 09:51:06 by cehrman          ###   ########.fr       */
+/*   Updated: 2020/03/01 09:17:32 by cehrman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/*
+**		Function	:	ft_lstmap
+**		Parameters	:	(t_list *)lst, t_list *(*f)(t_list *elem)
+**		Description	:	creates a new linked list by looping through
+**						each element in |lst| and assigned each new
+**						element to the return elem from |f(lst)|
+**		Return		:	(t_list *) pointer to beginning of new linked list
+*/
+
 t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	t_list	*map_root;
 	t_list	*map;
 	t_list	*tmp;
+	t_list	*map_root;
 
 	if (!lst || !f)
 		return (0);

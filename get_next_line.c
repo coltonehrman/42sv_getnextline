@@ -6,11 +6,18 @@
 /*   By: cehrman <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 11:22:47 by cehrman           #+#    #+#             */
-/*   Updated: 2020/02/23 11:33:46 by cehrman          ###   ########.fr       */
+/*   Updated: 2020/03/01 12:50:48 by cehrman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+/*
+**	checks the static cache which comes from get_next_line function
+**	to see if the next line already exists within it
+**	if it does, then it will assign the data to the *line pointer
+**	and remove the found data from cache
+*/
 
 int	check_cache(char **cache, char **line)
 {
@@ -37,6 +44,11 @@ int	check_cache(char **cache, char **line)
 	return (0);
 }
 
+/*
+**	reads data from given fd (file descriptor)
+**	and puts it into the cache
+*/
+
 int	read_fd(int fd, char **cache)
 {
 	char	*tmp[2];
@@ -59,6 +71,27 @@ int	read_fd(int fd, char **cache)
 	}
 	return (bytes_read);
 }
+
+/*
+**	the core of get_next_line
+**	first check to see if we have a valid fd (file descriptor)
+**	and if there is a pointer to the line, if none of these are true
+**	function immediately returns (-1) to indicate something is wrong
+**
+**	then set cache for given fd if does not already exist
+**
+**	then see if the data already exists within the cache
+**	if so, it will return (1) to indicate that the next line was read
+**
+**	then try and read bytes from the fd, if the read encounters an error
+**	return (-1) to indicate this
+**
+**	then check how many bytes were read, if it was 0 this indicates that
+**	we have reached the EOF and return (1) or (0) depending on if the
+**	cache still has data in it
+**
+**	last thing, if we havn't returned already recursively call get_next_line
+*/
 
 int	get_next_line(int fd, char **line)
 {

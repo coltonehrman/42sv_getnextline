@@ -6,11 +6,19 @@
 /*   By: cehrman <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 10:20:39 by cehrman           #+#    #+#             */
-/*   Updated: 2020/02/23 16:57:03 by cehrman          ###   ########.fr       */
+/*   Updated: 2020/03/01 05:59:22 by cehrman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+/*
+**		Function	:	ft_count_words
+**		Parameters	:	(const char *)s, (char)c
+**		Description	:	counts words inside of |*s|
+**						that are delimited by |c|
+**		Return		:	(int)
+*/
 
 int		ft_count_words(const char *s, char c)
 {

@@ -6,17 +6,24 @@
 /*   By: cehrman <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 12:08:09 by cehrman           #+#    #+#             */
-/*   Updated: 2020/02/20 12:45:15 by cehrman          ###   ########.fr       */
+/*   Updated: 2020/03/01 09:07:52 by cehrman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/*
+**		Function	:	ft_itoa
+**		Parameters	:	(int)n
+**		Description	:	converts an int into a (char *)
+**		Return		:	(char *)
+*/
+
 char	*ft_itoa(int n)
 {
 	char	*str;
-	int		digits;
 	int		i;
+	int		digits;
 
 	digits = ft_count_digits(n);
 	if (n < 0)
